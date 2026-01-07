@@ -1,0 +1,24 @@
+.user_head{
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+}
+.header_text{
+    font-size: 24px;
+    font-weight: 500;
+    color: rgb(17, 16, 16);
+}
+.subtext{
+    color: rgb(148 163 184);
+}
+.account{
+    display: block;
+    padding: 1em;
+}
+.faviourted{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    padding: 1em;
+    gap: 0.5em;
+    align-items: center;
+}

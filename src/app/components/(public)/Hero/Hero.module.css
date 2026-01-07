@@ -1,0 +1,13 @@
+.imageWrap{
+    width: 100vw;
+    
+    margin-bottom: 1em;
+    margin-top: 1em;
+
+  }
+.center{
+    width: 100%;    /* fill width */
+    height: 33.3vh;  /* scale height automatically */
+  
+  /* object-fit: cover; */
+}

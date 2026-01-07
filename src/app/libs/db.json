@@ -1,0 +1,75 @@
+[
+  {
+    "id": "pg-001",
+    "categoryId": "cat-1",
+    "title": "Safe Pregnancy",
+    "description": "A gentle space to relax, breathe, and feel supported as your body nurtures new life.",
+    "image": "https://images.unsplash.com/photo-1544717305-2782549b5136",
+    "audio": "/audio/safe-pregnancy.mp3",
+    "order": 1
+  },
+  {
+    "id": "pg-002",
+    "categoryId": "cat-1",
+    "title": "Gentle Breathing",
+    "description": "Slow, calming breaths to ease tension and bring comfort to both body and mind.",
+    "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773",
+    "audio": "/audio/gentle-breathing.mp3",
+    "order": 2
+  },
+  {
+    "id": "pg-003",
+    "categoryId": "cat-1",
+    "title": "Calm Baby, Calm Mind",
+    "description": "A peaceful moment to connect with your baby while settling your thoughts and emotions.",
+    "image": "https://images.unsplash.com/photo-1516627145497-ae6968895b74",
+    "audio": "/audio/calm-baby-calm-mind.mp3",
+    "order": 3
+  },
+  {
+    "id": "pg-007",
+    "categoryId": "cat-1",
+    "title": "Emotional Balance",
+    "description": "A calming experience designed to support emotional ease and inner steadiness.",
+    "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    "audio": "/audio/emotional-balance.mp3",
+    "order": 4
+  },
+
+  {
+    "id": "pg-004",
+    "categoryId": "cat-2",
+    "title": "Peaceful Sleep",
+    "description": "Soft guidance to help you unwind, relax deeply, and prepare for restful sleep.",
+    "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+    "audio": "/audio/peaceful-sleep.mp3",
+    "order": 1
+  },
+  {
+    "id": "pg-006",
+    "categoryId": "cat-2",
+    "title": "Relaxing Body Scan",
+    "description": "A soothing body scan to release tension and gently reconnect with your body.",
+    "image": "/1000112023.jpg",
+    "audio": "/audio/relaxing-body-scan.mp3",
+    "order": 2
+  },
+  {
+    "id": "pg-005",
+    "categoryId": "cat-2",
+    "title": "Mindful Moments",
+    "description": "Short pauses throughout the day to ground yourself and restore inner calm.",
+    "image": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88",
+    "audio": "/audio/mindful-moments.mp3",
+    "order": 3
+  },
+  {
+    "id": "pg-008",
+    "categoryId": "cat-2",
+    "title": "Soft Morning Calm",
+    "description": "Begin your day gently with calming reflections and peaceful energy.",
+    "image": "https://images.unsplash.com/photo-1502082553048-f009c37129b9",
+    "audio": "/audio/soft-morning-calm.mp3",
+    "order": 4
+  }
+]

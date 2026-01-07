@@ -1,0 +1,17 @@
+.contain{
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 90vh;
+    width: 10em;
+    /* border: 1px solid ; */
+    align-items: center;
+    text-align: center;
+    
+}
+.elm{
+    cursor: pointer;
+}
+.selected{
+    color: rgb(141, 142, 143);
+}

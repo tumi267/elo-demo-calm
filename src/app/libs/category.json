@@ -1,0 +1,13 @@
+[
+    {
+      "id": "cat-1",
+      "name": "Pregnancy Support",
+      "order": 1
+    },
+    {
+      "id": "cat-2",
+      "name": "Relaxation & Sleep",
+      "order": 2
+    }
+  ]
+  

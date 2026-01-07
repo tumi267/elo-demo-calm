@@ -1,0 +1,29 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #f9faf9;
+  }
+  
+  .step {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: #6fd5f2;
+  }
+  
+  .circle {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .slice {
+    stroke: #69bff1;
+    stroke-dasharray: 290; /* 25% of circumference for a slice */
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+  }
+  
+  
