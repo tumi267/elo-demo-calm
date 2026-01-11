@@ -1,116 +1,94 @@
 'use client'
+
 import { useEffect, useRef, useState } from 'react'
-import WaveSurfer from 'wavesurfer.js'
+import { Howl } from 'howler'
 
-const audioList = [
-  { title: 'Calm Rain', src: '/calm-rain-ambience.mp3' },
-  { title: 'Forest Birds', src: '/forest-birds.mp3' },
-  { title: 'Ocean Waves', src: '/ocean-waves.mp3' },
-]
+export default function CalmPlaylistPlayer() {
+  const soundRef = useRef<Howl | null>(null)
 
-export default function WaveformPlayer() {
-  const waveformRef = useRef<HTMLDivElement | null>(null)
-  const wavesurferRef = useRef<WaveSurfer | null>(null)
-
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [index, setIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [volume, setVolume] = useState(0.5)
   const [loopMode, setLoopMode] = useState<'track' | 'playlist'>('track')
-  const [favorites, setFavorites] = useState<number[]>([]) // store favorited track indices
-
-  // Initialize WaveSurfer
+  const playlist = [
+    { id: 1, title: 'Calm Rain', src: '/calm-rain-ambience.mp3' },
+    { id: 2, title: 'Forest Birds', src: '/forest-birds.mp3' },
+    { id: 3, title: 'Ocean Waves', src: '/ocean-waves.mp3' },
+  ]
+  // Create / load sound
   useEffect(() => {
-    if (!waveformRef.current) return
+    soundRef.current?.unload()
 
-    wavesurferRef.current = WaveSurfer.create({
-      container: waveformRef.current,
-      waveColor: '#888',
-      progressColor: '#1DB954',
-      cursorColor: '#333',
-      barWidth: 2,
-      height: 100,
-      normalize: true,
+    soundRef.current = new Howl({
+      src: [playlist[index].src],
+      volume,
+      loop: loopMode === 'track',
+      html5: true,
+      onend: () => {
+        if (loopMode === 'playlist') {
+          next()
+        }
+      },
     })
 
-    wavesurferRef.current.load(audioList[currentIndex].src)
-    wavesurferRef.current.setVolume(volume)
-
-    wavesurferRef.current.on('finish', () => {
-      if (loopMode === 'track') {
-        wavesurferRef.current?.play()
-      } else {
-        nextTrack()
-      }
-    })
+    if (isPlaying) {
+      soundRef.current.play()
+    }
 
     return () => {
-      wavesurferRef.current?.destroy()
+      soundRef.current?.unload()
     }
-  }, [])
-
-  // Load new track when currentIndex changes
-  useEffect(() => {
-    wavesurferRef.current?.load(audioList[currentIndex].src)
-    if (isPlaying) {
-      wavesurferRef.current?.play()
-    }
-  }, [currentIndex])
+  }, [index])
 
   // Update volume
   useEffect(() => {
-    wavesurferRef.current?.setVolume(volume)
+    soundRef.current?.volume(volume)
   }, [volume])
 
   const playPause = () => {
-    if (!wavesurferRef.current) return
-    wavesurferRef.current.playPause()
-    setIsPlaying(wavesurferRef.current.isPlaying())
+    if (!soundRef.current) return
+
+    if (soundRef.current.playing()) {
+      soundRef.current.pause()
+      setIsPlaying(false)
+    } else {
+      soundRef.current.play()
+      setIsPlaying(true)
+    }
   }
 
-  const nextTrack = () => {
-    setIsPlaying(false)
-    
-    setCurrentIndex((prev) => (prev + 1) % audioList.length)
+  const next = () => {
     setIsPlaying(true)
+    setIndex((prev) => (prev + 1) % playlist.length)
   }
 
-  const prevTrack = () => {
-    setIsPlaying(false)
-    setCurrentIndex((prev) => (prev === 0 ? audioList.length - 1 : prev - 1))
+  const prev = () => {
     setIsPlaying(true)
+    setIndex((prev) => (prev === 0 ? playlist.length - 1 : prev - 1))
   }
 
   const toggleLoopMode = () => {
     setLoopMode((prev) => (prev === 'track' ? 'playlist' : 'track'))
   }
 
-  const toggleFavorite = (index: number) => {
-    setFavorites((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    )
-  }
-
   return (
-    <div style={{ maxWidth: 500, margin: 'auto', fontFamily: 'sans-serif' }}>
-      <h3>Now Playing: {audioList[currentIndex].title}</h3>
+    <div style={{ maxWidth: 420, margin: 'auto', textAlign: 'center' }}>
+      <h3>{playlist[index].title}</h3>
 
-      {/* Waveform */}
-      <div ref={waveformRef} style={{ marginBottom: 20 }} />
-
-      {/* Controls */}
-      <div style={{ display: 'flex', gap: 10, marginBottom: 10 }}>
-        <button onClick={prevTrack}>⏮️</button>
-        <button onClick={playPause}>{isPlaying ? '⏸️' : '▶️'}</button>
-        <button onClick={nextTrack}>⏭️</button>
+      <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+        <button onClick={prev}>⏮️</button>
+        <button onClick={playPause}>
+          {isPlaying ? '⏸️' : '▶️'}
+        </button>
+        <button onClick={next}>⏭️</button>
         <button onClick={toggleLoopMode}>
           {loopMode === 'track' ? '🔁 Track' : '🔁 Playlist'}
         </button>
       </div>
 
-      {/* Volume */}
-      <div>
+      <div style={{ marginTop: 16 }}>
         <label>
-          Volume: {Math.round(volume * 100)}%
+          Volume {Math.round(volume * 100)}%
           <input
             type="range"
             min={0}
@@ -122,25 +100,19 @@ export default function WaveformPlayer() {
         </label>
       </div>
 
-      {/* Playlist */}
-      <h4>Playlist:</h4>
-      <ul>
-        {audioList.map((track, i) => (
-          <li key={i} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+      <ul style={{ marginTop: 20 }}>
+        {playlist.map((track, i) => (
+          <li key={track.id}>
             <button
               onClick={() => {
-                // is play stop audio the play
-                setCurrentIndex(i)
+                setIndex(i)
                 setIsPlaying(true)
               }}
+              style={{
+                fontWeight: i === index ? 'bold' : 'normal',
+              }}
             >
-              {currentIndex === i ? '🎵 ' : ''}{track.title}
-            </button>
-            <button
-              onClick={() => toggleFavorite(i)}
-              style={{ background: 'none', border: 'none', cursor: 'pointer' }}
-            >
-              {favorites.includes(i) ? '❤️' : '🤍'}
+              {track.title}
             </button>
           </li>
         ))}

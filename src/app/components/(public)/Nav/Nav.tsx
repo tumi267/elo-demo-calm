@@ -29,7 +29,7 @@ function Nav() {
 
   return (
     <div className={`${styles.contain} ${show ? styles.show : styles.hide}`}>
-      <span><Link href={'/'}>logo</Link></span>
+      <span><Link href={'/'}><span>HE</span>MA<span></span></Link></span>
       <span><input placeholder='search'/></span>
       <span><Link href={'/user/001'}>login/signout</Link></span>
     </div>
